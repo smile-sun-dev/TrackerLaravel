@@ -1,0 +1,141 @@
+    id
+    is_active
+    is_deleted
+    created_at
+    updated_at
+    deleted_at
+
+
+users				****
+    type = (Customer,Driver)
+    name
+    username
+    email
+    phonenumber
+    age
+    gender
+    password
+
+admin				****
+    type = (Admin, Super Admin)
+    name
+    username
+    email
+    phonenumber
+    age
+    gender
+    password
+
+Vehicle				****
+    vehicle_class
+    vehicle_type
+    no_of_passenger
+    number_plate
+    make
+    model
+    year
+    no_of_luggage 
+    
+vehicle_rates			****
+    vehicle_id (foreign)
+    starting_amount
+    effective_date
+
+driver_vehicle			****
+    vehicle_id
+    driver_id
+    alloted_date
+
+Booking				****
+    
+    booking_type
+    booking_date
+    return_date (null)
+    no_of_hours (null)
+    no_of_passenger
+    no_of_vehicles
+
+booking_driver_vehicle		****
+    driver_vehicle_id
+    booking_id
+    booking_locations_id (parent = 0)
+
+booking_locations		****
+    parent_booking_locaiton
+    booking_id
+    pin locaiton
+    address
+    longitutde
+    latitude
+    postalcode
+
+tranactions			****
+    booking_id
+    payment_transaction_id
+    total_amount
+    is_paid
+    discount
+    payment_type
+    response_data
+    last_four_digit
+
+Invoice
+    invoice_type
+    transaction_id
+    billing_name
+    billing_email
+    generated_date
+
+
+
+booking_driver_vehicle
+
+booking_review(type:Customer,Driver)
+
+
+Website Setting
+
+currency_mode			****
+    name
+    slug
+    symbol
+    curreny_mode PKR,USD,EUR,CA
+
+booking_type  			****  
+    name
+    slug
+
+Per Mile Calculation = 5
+Per Mile Calculation = selectbox
+
+Packages  			**** 
+    name
+    slug
+    desc
+
+package_amount  		****
+    package_id
+    amount
+    effective_date
+
+Basic action => create, edit, delete
+
+Role and Permission
+
+Customer (can_login, send_invoice (Notify), booking_info, can_submit_review)
+Driver (can_login, send_invoice (Notify), booking_info, can_endup_ride, can_submit_review)
+Admin (can_login, receive_invoice, create_driver, create_vehicle, assign_driver_to_vehicle, can_submit_review, package, create_booking, view_transactions, create_currencies,manage_webiste_setting)
+Super Admin (setup_other_account_logins, receive_invoice, create_driver, create_vehicle,  can_submit_review, package, assign_driver_to_vehicle, create_booking, view_transactions, create_currencies,manage_webiste_setting)
+
+
+activity_log  			****
+    action_type
+    table_name
+    previous data
+    record_id
+    admin_id
+    comments
+
+
+Helper::activity_log($action, $table_name , $_POST , $record_id);
+

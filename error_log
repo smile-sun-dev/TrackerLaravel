@@ -1,0 +1,1 @@
+[20-Oct-2022 11:25:10 America/Chicago] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.32. in /home3/myz10do1/prestige-booking.testlivesite.com/vendor/composer/platform_check.php on line 24
