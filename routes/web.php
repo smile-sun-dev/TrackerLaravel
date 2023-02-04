@@ -22,13 +22,11 @@ use App\Http\Controllers\VehicleController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/', function () {
-//     return view('booking');
-// });
-Route::get('/', [IndexController::class, 'dashboard'])->name('dashboard');
+ Route::get('/', function () {
+     return view('index');
+ });
+
+//Route::get('/', [IndexController::class, 'dashboard'])->name('dashboard');
 Route::get('/add-floor', [IndexController::class, 'add_floor'])->name('add-floor');
 Route::get('/add-project', [IndexController::class, 'add_project'])->name('add-project');
 Route::get('/project-step-0', [IndexController::class, 'project_step0'])->name('project-step0');
