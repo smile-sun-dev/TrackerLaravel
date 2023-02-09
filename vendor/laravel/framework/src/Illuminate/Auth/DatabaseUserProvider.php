@@ -99,6 +99,7 @@ class DatabaseUserProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
+        dd("dfdfdfdfd");
         $credentials = array_filter(
             $credentials,
             fn ($key) => ! str_contains($key, 'password'),

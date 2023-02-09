@@ -31,11 +31,13 @@ trait AuthenticatesUsers
      */
     public function login(Request $request)
     {
-        $this->validateLogin($request);
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
+         $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        $credentials = $request->only('email', 'password');
+
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
@@ -70,7 +72,7 @@ trait AuthenticatesUsers
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            $this->username() => 'required|string',
+            'email' => 'required|string',
             'password' => 'required|string',
         ]);
     }
@@ -127,11 +129,11 @@ trait AuthenticatesUsers
      * @param  mixed  $user
      * @return mixed
      */
-    protected function authenticated(Request $request, $user)
+   /* protected function authenticated(Request $request, $user)
     {
         //
     }
-
+*/
     /**
      * Get the failed login response instance.
      *

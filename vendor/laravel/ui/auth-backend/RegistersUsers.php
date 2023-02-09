@@ -6,7 +6,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Brian2694\Toastr\Facades\Toastr;
 trait RegistersUsers
 {
     use RedirectsUsers;
@@ -29,19 +31,20 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $request->validate([
+            'name' => ['required','string','max:10','unique:users'],
+            'password' => ['required', 'string', 'min:6', 'max:12', 'confirmed'],
+            'role' => ['required'],
+        ]);
 
-        event(new Registered($user = $this->create($request->all())));
-
-        $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
+        $user= new User();
+        $user->name = $request['name'];
+        $user->password = Hash::make($request['password']);
+        $user->email = $request['email'];
+        $user->role = $request['role'];
+        $user->save();
+        Toastr::success('Successfully Registered!');
+        return view('auth.login');
     }
 
     /**

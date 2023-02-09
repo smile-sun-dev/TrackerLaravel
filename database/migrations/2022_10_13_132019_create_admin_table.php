@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('age');
             $table->string('gender');
             $table->string('password');
-            $table->integer('is_active')->default('1');
+            $table->integer('is_active')->default('0');
             $table->integer('is_deleted')->default('0');
             $table->timestamps();
             $table->softDeletes();

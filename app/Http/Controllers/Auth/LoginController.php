@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class LoginController extends Controller
 {
@@ -19,23 +20,32 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
-
+    protected $redirectTo = 'index';
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    //protected $redirectTo = RouteServiceProvider::HOME;
-    protected function authenticated(Request $request, $user)
+    public function authenticated(Request $request, $user)
     {
         // if ($user->type != 3) {
         //     Auth::logout();
         //     return redirect(route('login'))->with(['error' => 'No Page Found']);
         // }
-        $userr = auth()->user();
-        return redirect()->route('dashboard');
+        $user = auth()->user();
+        if ($user->role == 'user') {
+            if ($user->is_active == 0) {
+                   Toastr::success('Welcome)', 'Success!!');
+                    return view('index');
+            }
+            else
+            {
+                dd("user");
+            }
+        }
+
+        //return redirect(url('index'));
         
     }
 
